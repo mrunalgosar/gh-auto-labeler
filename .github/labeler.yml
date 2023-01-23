@@ -1,0 +1,4 @@
+moda:
+- mod-a/**/*
+modb:
+- mod-b/src/test/**/*
