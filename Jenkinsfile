@@ -6,15 +6,13 @@ node {
 //        def scmHead = jenkins.scm.api.SCMHead.HeadByItem.findHead(currentBuild.rawBuild.getParent())
 //        def prId = scmHead.getId();
 //        echo("PR: ${prId}")
-        echo("Change: ${env.CHANGE_ID}")
-        def response = httpRequest acceptType: 'APPLICATION_JSON', consoleLogResponseBody: false, customHeaders: [[maskValue: false, name: 'Authorization', value: 'Bearer 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']], responseHandle: 'LEAVE_OPEN', url: "https://api.github.com/repos/mrunalgosar/gh-auto-labeler/pulls/${env.CHANGE_ID}", wrapAsMultipart: false
-        def json = new JsonSlurper().parseText(response.content)
-        for (label in json.labels) {
-            echo("Label: ${label.name}")
+        withCredentials([usernamePassword(credentialsId: 'postman', passwordVariable: 'PPP', usernameVariable: 'UUU')]) {
+            def response = httpRequest acceptType: 'APPLICATION_JSON', consoleLogResponseBody: false, customHeaders: [[maskValue: false, name: 'Authorization', value: "Bearer ${PPP}"]], responseHandle: 'LEAVE_OPEN', url: "https://api.github.com/repos/mrunalgosar/gh-auto-labeler/pulls/${env.CHANGE_ID}", wrapAsMultipart: false
+            def json = new JsonSlurper().parseText(response.content)
+            for (label in json.labels) {
+                echo("Label: ${label.name}")
+            }
+            response.close()
         }
-        response.close()
-//        withCredentials([usernamePassword(credentialsId: 'postman', passwordVariable: 'PPP', usernameVariable: 'UUU')]) {
-//
-//        }
     }
 }
