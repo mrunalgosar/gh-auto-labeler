@@ -18,7 +18,10 @@ node {
     stage('Get Head') {
         echo("Branch name: ${env.BRANCH_NAME}")
         if (env.BRANCH_NAME == 'main') {
-            sh("git log --grep=\"Merge pull request\" --pretty=oneline -1")
+            println("Merge requests")
+            sh("git log --grep=\"Merge pull request\" --pretty=oneline")
+            println("Merge requests #")
+            sh("git log --grep=\"Merge pull request\" --pretty=oneline | sed -En 's/.*#([[:digit:]]+).*/\\1/p'")
         }
     }
 }
