@@ -21,7 +21,8 @@ node {
             println("Merge requests")
             sh("git log --grep=\"Merge pull request\" --pretty=oneline")
             println("Merge requests #")
-            sh("git log --grep=\"Merge pull request\" --pretty=oneline | sed -En 's/.*#([[:digit:]]+).*/\\1/p'")
+            def prNUm = sh returnStdout: true, script: 'git log --grep="Merge pull request" --pretty=oneline -1 | sed -En \'s/.*#([[:digit:]]+).*/\\1/p\''
+            printf("PR #: %s", prNUm)
         }
     }
 }
