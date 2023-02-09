@@ -18,7 +18,7 @@ node {
     stage('Get Head') {
         echo("Branch name: ${env.BRANCH_NAME}")
         if (env.BRANCH_NAME == 'main') {
-            sh("git show --merges")
+            sh("git log --grep=\"Merge pull request\" --pretty=oneline -1")
         }
     }
 }
