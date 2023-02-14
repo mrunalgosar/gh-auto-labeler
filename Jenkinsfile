@@ -47,6 +47,7 @@ node {
                 for (label in json.labels) {
                     echo("Label: ${label.name}")
                 }
+                response.close()
                 res.close()
             }
         }
