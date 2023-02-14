@@ -42,6 +42,7 @@ node {
                 println("PR #: ${json[0].number}")
                 def prNum = json[0].number
                 response = httpRequest acceptType: 'APPLICATION_JSON', consoleLogResponseBody: false, customHeaders: [[maskValue: false, name: 'Authorization', value: "Bearer ${PPP}"]], responseHandle: 'LEAVE_OPEN', url: "https://api.github.com/repos/mrunalgosar/gh-auto-labeler/pulls/${prNum}", wrapAsMultipart: false
+                println("Response ============ \n ${response.content}")
                 json = new JsonSlurper().parseText(response.content)
                 for (label in json.labels) {
                     echo("Label: ${label.name}")
