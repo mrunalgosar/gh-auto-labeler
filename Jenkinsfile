@@ -22,7 +22,7 @@ node {
             sh("git log --grep=\"Merge pull request\" --pretty=oneline")
             println("Merge requests #")
             def prNum = sh returnStdout: true, script: 'git log --grep="Merge pull request" --pretty=oneline -1 | sed -En \'s/.*#([[:digit:]]+).*/\\1/p\''
-            printf("PR #: %s", prNUm)
+            printf("PR #: %s", prNum)
             withCredentials([usernamePassword(credentialsId: 'postman', passwordVariable: 'PPP', usernameVariable: 'UUU')]) {
                 def response = httpRequest acceptType: 'APPLICATION_JSON', consoleLogResponseBody: false, customHeaders: [[maskValue: false, name: 'Authorization', value: "Bearer ${PPP}"]], responseHandle: 'LEAVE_OPEN', url: "https://api.github.com/repos/mrunalgosar/gh-auto-labeler/pulls/${prNum}", wrapAsMultipart: false
                 def json = new JsonSlurper().parseText(response.content)
