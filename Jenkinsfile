@@ -44,11 +44,11 @@ node {
                 response.close()
                 def res = httpRequest acceptType: 'APPLICATION_JSON', consoleLogResponseBody: true, customHeaders: [[maskValue: false, name: 'Authorization', value: "Bearer ${PPP}"]], responseHandle: 'LEAVE_OPEN', url: "https://api.github.com/repos/mrunalgosar/gh-auto-labeler/pulls/${prNum}", wrapAsMultipart: false
                 println(res.status)
-                println("Response ============ \n ${res.content}")
+                /*println("Response ============ \n ${res.content}")
                 json = new JsonSlurper().parseText(res.content)
                 for (label in json.labels) {
                     echo("Label: ${label.name}")
-                }
+                }*/
                 res.close()
             }
         }
