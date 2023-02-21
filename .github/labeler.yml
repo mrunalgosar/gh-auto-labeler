@@ -1,4 +1,4 @@
-@moda:
+'@moda':
 - mod-a/**/*
-@modb:
+'@modb':
 - mod-b/src/test/**/*
